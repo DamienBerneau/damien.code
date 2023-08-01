@@ -12,6 +12,10 @@ router.post('/', async (req, res) => {
     }
 })
 
+router.get('/',async (req, res) => {
+    const user = await User.findAll()
+    res.json(user)
+})
 router.get('/email', async (req, res) => {
     try {
         const email = req.query.email;

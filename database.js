@@ -1,7 +1,7 @@
-import Sequelize from 'sequelize'
+import { Sequelize } from 'sequelize'
 
-const sequelize = new Sequelize(
-    'testdb',
+const database = new Sequelize(
+    'apibdd',
     'root',
     '',
     {
@@ -10,4 +10,4 @@ const sequelize = new Sequelize(
     }
 )
 
-export default sequelize;
+export default database;

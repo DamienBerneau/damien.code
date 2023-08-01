@@ -1,10 +1,15 @@
 import request from 'supertest'
-import server from '../index.js'
+import { app, database, server } from '../index.js'
+
+afterAll(() => {
+    database.close()
+    server.close()
+})
 
 
 describe('toutes les routes users', () => {
     test('POST users', async () => {
-        const res = await request(server)
+        const res = await request(app)
             .post('/users')
             .send({
                 "name": "John Wick",
@@ -13,8 +18,5 @@ describe('toutes les routes users', () => {
             })
 
         expect(res.statusCode).toBe(201)
-    })
-    test('GET users', () => {
-
     })
 })
