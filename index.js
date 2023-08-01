@@ -1,27 +1,22 @@
-import User from './models/User.js';
-import express from 'express'
+import express from 'express';
+import sequelize from './database.js';
+import userRoutes from './routes/users.routes.js'
 
-const server = express()
+
+sequelize.sync().then(() => { console.log(`Database & tables created !`); })
+
+const server = express();
 server.use(express.json())
+
+server.use('/', userRoutes)
 
 server.use((req, res, next) => {
     console.log(`${req.method} ${req.url}`);
-    next()
+    next();
 })
-
-
-
-server.post('/users', async (req, res) => {
-    try {
-        const user = await User.create(req.body)
-        res.status(201).send('user created ' + user.toJSON())
-    } catch (err) {
-        console.error(err);
-    }
-})
-
-
 
 server.listen(3000, () => {
-    console.log('server is runnig on port 3000');
-});
+    console.log('server is running on port 3000');
+})
+
+export default server
